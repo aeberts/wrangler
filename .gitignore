@@ -3,7 +3,7 @@
 /*-init.clj
 /resources/public/js/compiled
 out
-/.idea/
+.idea/*
 *.iml
 .lein-failures
 .lein-repl-history
