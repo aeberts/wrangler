@@ -19,13 +19,15 @@
 
   :min-lein-version "2.5.3"
 
-  :source-paths ["src/clj" "src/cljs"]
+  :source-paths ["src/clj" "src/cljs" "script"]
+
+  :test-paths ["script"]
 
   :clean-targets ^{:protect false} ["resources/public/js/compiled" "target"
                                     "test/js"
                                     "resources/public/css"]
 
-  :figwheel {:css-dirs ["resources/public/css"]
+  :figwheel {:css-dirs     ["resources/public/css"]
              :ring-handler wrangler.handler/dev-handler}
 
   :garden {:builds [{:id           "screen"
@@ -36,20 +38,22 @@
 
   :profiles
   {:dev
-   {:dependencies [[binaryage/devtools "0.9.10"]
-                   [day8.re-frame/re-frame-10x "0.3.6"]
-                   [day8.re-frame/tracing "0.5.1"]]
+            {:dependencies [[binaryage/devtools "0.9.10"]
+                            [day8.re-frame/re-frame-10x "0.3.6"]
+                            [day8.re-frame/tracing "0.5.1"]
+                            [figwheel-sidecar "0.5.16"]]
 
-    :plugins      [[lein-figwheel "0.5.16"]
-                   [lein-doo "0.1.8"]]}
-   :prod { :dependencies [[day8.re-frame/tracing-stubs "0.5.1"]]}
+             :plugins      [
+                            [lein-doo "0.1.8"]
+                            ]}
+   :prod    {:dependencies [[day8.re-frame/tracing-stubs "0.5.1"]]}
    :uberjar {:source-paths ["env/prod/clj"]
              :dependencies [[day8.re-frame/tracing-stubs "0.5.1"]]
              :omit-source  true
              :main         wrangler.server
              :aot          [wrangler.server]
              :uberjar-name "wrangler.jar"
-             :prep-tasks   ["compile" ["cljsbuild" "once" "min"]["garden" "once"]]}
+             :prep-tasks   ["compile" ["cljsbuild" "once" "min"] ["garden" "once"]]}
    }
 
   :cljsbuild
@@ -64,14 +68,14 @@
                     :source-map-timestamp true
                     :preloads             [devtools.preload
                                            day8.re-frame-10x.preload]
-                    :closure-defines      {"re_frame.trace.trace_enabled_QMARK_" true
+                    :closure-defines      {"re_frame.trace.trace_enabled_QMARK_"        true
                                            "day8.re_frame.tracing.trace_enabled_QMARK_" true}
                     :external-config      {:devtools/config {:features-to-install :all}}
                     }}
 
     {:id           "min"
      :source-paths ["src/cljs"]
-     :jar true
+     :jar          true
      :compiler     {:main            wrangler.core
                     :output-to       "resources/public/js/compiled/app.js"
                     :optimizations   :advanced
