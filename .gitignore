@@ -2,11 +2,11 @@
 /target
 /*-init.clj
 /resources/public/js/compiled
-out
 .idea/*
 *.iml
 .lein-failures
 .lein-repl-history
 .nrepl-port
 .rebel_readline_history
-figwheel_server.log
+.DS_Store
+/resources/CIBCtest.csv

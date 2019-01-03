@@ -12,6 +12,7 @@
                  [yogthos/config "1.1.1"]
                  [ring "1.7.1"]
                  [re-pressed "0.2.2"]
+                 [org.clojure/data.csv "0.1.4"]
                  [semantic-csv "0.2.1-alpha1"]]
 
   :plugins [[lein-cljsbuild "1.1.7"]
